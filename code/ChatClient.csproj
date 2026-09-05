@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net8.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<AssemblyName>ChatClient</AssemblyName>
+	<RootNamespace>ChatClient</RootNamespace>
+	<Version>1.2.0</Version>
+	<AssemblyVersion>1.2.0.0</AssemblyVersion>
+	<FileVersion>1.2.0.0</FileVersion>
+	<Authors>Creaddinscart Team</Authors>
+	<Company>Creaddinscart Team</Company>
+	<Product>ChatClient</Product>
+	<Description>ChatClient — a lightweight LAN/virtual-room chat client by Creaddinscart Team</Description>
+	<PackageProjectUrl>https://github.com/Creaddinscart/ChatClient</PackageProjectUrl>
+	<Copyright>MIT License - Creaddinscart Team</Copyright>
+	<AssemblyTitle>ChatClient</AssemblyTitle>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+</Project>
