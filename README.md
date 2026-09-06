@@ -1,68 +1,59 @@
 # ChatClient
 
-ChatClient is a Windows WPF chat client released by the **Creaddinscart Team**, Initial version **v1.1.0**, licensed under the MIT License.
+Current release: **v1.4.0.0**.
 
-> The application starts in English. Use **Settings** to switch between English and Chinese.
+## Quick start
 
-## Quick Start
-
-1. After launching, enter a name and click "Enter ChatClient".
-
-2. Click "Create Server", select your local IPv4, IPv6, or virtual network adapter, and record the address, port, and 64-bit key.
-
-3. On another computer or a second client on the same computer, click "Join Chat" and fill in the server information.
-
-4. The server port must be allowed through the Windows Firewall; public IPv4 usually requires router port forwarding.
-
-5. When using a virtual network, both parties must first join the same virtual network, then select the virtual network adapter address to connect.
-
-6. If you do not want to install a virtual network adapter, click "Virtual Network Room": The creator enters the relay WebSocket address and sends the automatically generated room code and room key to other users; joiners enter the same relay address, room code, and room key.
-
-7. For a true virtual LAN, click **Real Virtual LAN**. After installing WireGuard, export the configuration and import it into the WireGuard client to enable tunneling.
+1. Launch the app, enter your display name, and select **Enter ChatClient**.
+2. Select **Create Server**, choose a local network interface, and record the address, port, and server key.
+3. On another device, or in a second client on the same computer, select **Join Chat** and enter the server details.
+4. Allow the selected port through Windows Firewall. Public IPv4 connections may also require router port forwarding.
+5. For a relay room, select **Virtual Network Room**, enter a WebSocket relay address, and share the generated room code and key.
+6. For a real virtual LAN, select **Real Virtual LAN**, export the WireGuard configuration, import it into WireGuard, and enable the tunnel.
 
 ## Features
 
-- White official mode, black official mode, and customizable chat main color.
+- English-only user interface and notifications.
+- Light and dark themes with a custom chat accent color.
+- IPv4, IPv6, LAN, virtual-room, and WireGuard networking options.
+- TCP server/client chat with strict client protocol-version matching.
+- Optional AES-GCM message encryption for password-protected servers.
+- File, image, GIF, and video attachments up to 100 MB with preview and download.
+- Server-owner moderation: ban by username, IP address, or both.
+- Usernames must be unique within each server, including the server owner name.
+- Online-user count displayed in the active server chat panel.
+- Full session chat-history export to a `.txt` file.
+- Typing indicators visible to other participants, including password-free rooms.
+- Enter sends a message; Shift+Enter inserts a new line.
+- Resource redemption with a one-minute request throttle.
 
-- IPv4, IPv6, and virtual network adapter detection.
+## Server and security notes
 
-- Direct TCP LAN/Public network connection; the server and client can run simultaneously on the same computer.
+The server key is generated for the current session and must be shared only with intended participants. IP bans are based on the address observed by the server and may be affected by NAT or relay topologies.
 
-- Virtual Network Room mode: Connects via a public WebSocket relay, without installing a VPN driver; the relay address needs to be provided by the project deployer.
+The application does not include a VPN driver or automatically modify router settings. WireGuard mode requires WireGuard for Windows, Wintun, and a compatible coordination or relay server.
 
-- The server generates a 64-character hexadecimal key; joiners must provide the correct key.
+## Build and publish
 
-- Chat message encryption can be selected in the settings. When enabled, AES-GCM is used; the key is only used in the current session and is not uploaded.
-
-- The "Redeem Information" in the top left corner requests `https://shit.pub/s/developer/Client/ChatClient/API/s/{name}/txt.txt` by name, with a maximum request of once per minute.
-
-## Limitations and Security
-
-This version does not include a built-in VPN driver and will not automatically modify the router. Virtual network rooms require a public WebSocket relay service compatible with the `API.md` protocol; clients cannot provide a public relay out of thin air. Do not expose server keys or room keys in untrusted environments.
-
-## Real Virtual LAN
-
-This mode uses WireGuard/Wintun to create a system-level virtual network adapter, allowing participants to obtain IPs within the same virtual network segment. The client is responsible for generating the key and exporting the `.conf` file; the following are still required:
-
-- Install WireGuard for Windows (including Wintun) and allow driver permissions;
-
-- A WireGuard coordination/relay server with a public endpoint;
-
-- Server-side peer public key, endpoint, and virtual network segment configuration.
-
-ChatClient does not spoof tunnel status and will not display "connected" when the driver or coordination server is missing.
-
-### English
-
-The application starts in English and can be switched to Chinese from Settings. **Real Virtual LAN** uses WireGuard/Wintun and exports a configuration file. Install WireGuard for Windows, configure a public coordination/relay peer, import the generated `.conf` file, and enable the tunnel. The client does not claim that a tunnel is connected when the driver or coordination server is unavailable.
-
-## Building and Deployment
-
-Requires .NET 8 SDK or later, Windows, and a Visual Studio WPF workload. Run:
+Windows desktop build requirements: Windows, .NET 8 SDK or later, and the WPF workload.
+Cross-platform build requirements: .NET 8 SDK or later. The Avalonia client can be published for Windows, Linux, and macOS.
 
 ```powershell
-
-./publish.ps1
-
+dotnet build ChatClient.csproj
+powershell.exe -ExecutionPolicy Bypass -File .\publish.ps1 -Version 1.3.0.0
+powershell.exe -ExecutionPolicy Bypass -File .\publish-crossplatform.ps1 -Version 1.3.0.0
 ```
-The published file is located at `publish/win-x64/ChatClient.exe`, and is a self-contained single-file EXE.
+
+The self-contained single-file executable is generated at:
+
+`publish\1.3.0.0\ChatClient.exe`
+
+The cross-platform single-file executables are generated under
+`publish-crossplatform\1.3.0.0\` in RID-specific folders for Windows x86/x64/ARM64,
+Linux x86/ARM/ARM64 and musl x64/ARM64, and macOS x64/ARM64.
+
+The publish script uses `--no-restore` after dependencies are already restored to reduce repeated publish time.
+
+## Release notes
+
+See [RELEASE_NOTES_1.3.0.0.md](RELEASE_NOTES_1.3.0.0.md) for the current release and [RELEASE_NOTES_1.2.7.md](RELEASE_NOTES_1.2.7.md) for the previous release.
