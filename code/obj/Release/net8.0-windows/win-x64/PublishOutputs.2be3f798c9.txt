@@ -1,2 +1,0 @@
-G:\Github\Creaddinscart\WORK\CODE\Client\ChatClient\publish\win-x64-update\ChatClient.pdb
-G:\Github\Creaddinscart\WORK\CODE\Client\ChatClient\publish\win-x64-update\ChatClient.exe
