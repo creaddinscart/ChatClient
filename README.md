@@ -1,6 +1,6 @@
 # ChatClient
 
-ChatClient is a Windows WPF chat client released by the **Creaddinscart Team**, version **v1.1.0**, licensed under the MIT License.
+ChatClient is a Windows WPF chat client released by the **Creaddinscart Team**, Initial version **v1.1.0**, licensed under the MIT License.
 
 > The application starts in English. Use **Settings** to switch between English and Chinese.
 
